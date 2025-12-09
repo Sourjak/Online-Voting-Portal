@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vote • <%= election.name %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="/">← Back</a>
+    <nav>
+      <% if (user.is_admin) { %><a href="/admin">Admin</a><% } %>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="box">
+    <h1><%= election.name %></h1>
+
+    <% if (already) { %>
+      <p class="info">You have already voted in this election.</p>
+    <% } else { %>
+      <form method="post">
+        <fieldset>
+          <legend>Select a candidate</legend>
+          <% if (candidates.length === 0) { %>
+            <p>No candidates yet.</p>
+          <% } else { %>
+            <% candidates.forEach(c => { %>
+              <label class="radio">
+                <input type="radio" name="candidate_id" value="<%= c._id %>" required>
+                <span><%= c.name %></span>
+              </label>
+            <% }) %>
+          <% } %>
+        </fieldset>
+        <button type="submit">Cast Vote</button>
+      </form>
+    <% } %>
+  </main>
+</body>
+</html>

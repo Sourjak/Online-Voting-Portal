@@ -1,0 +1,8 @@
+$ROOT = "C:\Users\sourj\OneDrive\Desktop\OV"
+Set-Location $ROOT
+
+npm start
+
+
+username:- admin
+password:- admin123

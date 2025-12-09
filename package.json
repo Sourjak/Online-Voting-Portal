@@ -1,0 +1,18 @@
+﻿{
+  "name": "online-voting",
+  "version": "1.0.1",
+  "description": "Local online voting system (no native build): auth, one-person-one-vote, encrypted ballots, receipts, admin dashboard.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-session": "^1.17.3",
+    "nedb-promises": "^6.2.3",
+    "uuid": "^9.0.1"
+  }
+}

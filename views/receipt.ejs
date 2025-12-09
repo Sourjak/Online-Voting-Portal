@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Receipt • <%= election.name %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="box">
+    <h1>Vote Receipt</h1>
+    <p>Election: <strong><%= election.name %></strong></p>
+    <p>Timestamp (UTC): <code><%= created_at %></code></p>
+    <p>Your verification hash (save this):</p>
+    <pre class="mono"><%= receipt_hash %></pre>
+    <p>You (or anyone) can verify this hash appears in the public list:</p>
+    <p><a href="/public/receipts" target="_blank">/public/receipts</a></p>
+    <p><a href="/">Back to dashboard</a></p>
+  </main>
+</body>
+</html>

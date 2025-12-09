@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin • Online Voting</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="/">← Dashboard</a>
+    <a href="/logout">Logout</a>
+  </header>
+
+  <main class="box">
+    <h1>Admin</h1>
+
+    <section>
+      <h2>Create Election</h2>
+      <form method="post" action="/admin/elections/create">
+        <label>Election Name <input name="name" required></label>
+        <button type="submit">Create</button>
+      </form>
+    </section>
+
+    <hr>
+
+    <% byElection.forEach(group => { %>
+      <section class="election">
+        <h2><%= group.election.name %>
+          <small>(<%= group.election.is_open ? 'Open' : 'Closed' %>)</small>
+        </h2>
+        <form method="post" action="/admin/elections/<%= group.election._id %>/toggle">
+          <button type="submit"><%= group.election.is_open ? 'Close' : 'Re-open' %> Election</button>
+        </form>
+
+        <h3>Candidates</h3>
+        <% if (group.candidates.length === 0) { %>
+          <p>No candidates yet.</p>
+        <% } else { %>
+          <ul>
+            <% group.candidates.forEach(c => { %>
+              <li>#<%= c._id %> — <%= c.name %></li>
+            <% }) %>
+          </ul>
+        <% } %>
+        <form method="post" action="/admin/candidates/add">
+          <input type="hidden" name="election_id" value="<%= group.election._id %>">
+          <label>Candidate Name <input name="name" required></label>
+          <button type="submit">Add Candidate</button>
+        </form>
+
+        <h3>Live Results</h3>
+        <% if (group.tallies.length === 0) { %>
+          <p>No tallies yet.</p>
+        <% } else { %>
+          <table class="tally">
+            <tr><th>Candidate</th><th>Votes</th></tr>
+            <% group.tallies.forEach(t => { %>
+              <tr><td><%= t.name %></td><td><%= t.count %></td></tr>
+            <% }) %>
+          </table>
+        <% } %>
+      </section>
+      <hr>
+    <% }) %>
+
+    <section>
+      <h2>Public Receipts</h2>
+      <p>JSON endpoint: <a href="/public/receipts" target="_blank">/public/receipts</a></p>
+    </section>
+  </main>
+</body>
+</html>
